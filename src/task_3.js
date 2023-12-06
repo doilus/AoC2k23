@@ -2,18 +2,19 @@ const fs = require("fs");
 
 const regxSymbol = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?~]/;
 
+//part II
 function checkStars(data, stars) {
   if (data[x][y] == "*") {
-    if(stars.some(item => item.x == x && item.y == y)) {
-      stars.map(item => {
+    if (stars.some((item) => item.x == x && item.y == y)) {
+      stars.map((item) => {
         if (item.x == x && item.y == y) {
           item.numbers.push(number);
           return item;
-        } 
+        }
         return item;
       });
     } else {
-      stars.push({ x: x, y: y, numbers: [number]})
+      stars.push({ x: x, y: y, numbers: [number] });
     }
   }
 }
@@ -34,7 +35,7 @@ try {
       if (data[i][j].match(/[0-9]/)) {
         number += data[i][j];
 
-        if(!(j == data[0].length - 1)) continue;
+        if (!(j == data[0].length - 1)) continue;
       }
 
       if (number == "") continue;
@@ -47,7 +48,7 @@ try {
           if (y < 0 || y >= data[0].length) continue;
 
           checkStars(data, stars);
-          
+
           if (data[x][y].match(regxSymbol)) {
             isSpecialCharacterFound = true;
             sumPartI += parseInt(number);
@@ -59,16 +60,14 @@ try {
     }
   }
 
-
-  stars.forEach(element => {
-    if(element.numbers.length == 2) {
-      sumPartII += element.numbers.reduce((a,b) => a * b);
+  stars.forEach((element) => {
+    if (element.numbers.length == 2) {
+      sumPartII += element.numbers.reduce((a, b) => a * b);
     }
   });
 
   console.log(`Sum Part I: ${sumPartI}`);
   console.log(`Sum Part II: ${sumPartII}`);
-
 } catch (err) {
   console.error(err);
 }
